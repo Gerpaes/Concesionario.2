@@ -20,6 +20,12 @@ import modelo.Vehiculo;
  */
 public class FicheroVhiculos {
     
+   private static String rutaArchivo = "data/vehiculos.txt";
+
+    public FicheroVhiculos() {
+       
+    }
+    
 public static void guardar(ArrayList<Vehiculo> vehiculos) {
     // 1. Crear carpeta si no existe
     File carpeta = new File("data");
@@ -28,7 +34,7 @@ public static void guardar(ArrayList<Vehiculo> vehiculos) {
    
 
     // 2. Usar try-with-resources (esto cierra el archivo automáticamente y guarda los datos)
-    try (BufferedWriter out = new BufferedWriter(new FileWriter("data/Vehiculos.txt"))) {
+    try (BufferedWriter out = new BufferedWriter(new FileWriter(rutaArchivo))) {
         
         for (Vehiculo v : vehiculos) {
             String linea = v.getMatricula() + ";" + v.getMarca() + ";" + 
@@ -46,9 +52,17 @@ public static void guardar(ArrayList<Vehiculo> vehiculos) {
     }
 }
 
-public static void cargar(ArrayList<Vehiculo> vehiculos) {
-        File archivo = new File("data/Vehiculos.txt");
-        if (!archivo.exists()) return;
+public static ArrayList<Vehiculo> cargar() {
+        ArrayList<Vehiculo> vehiculos = new ArrayList<>();
+        
+        // Verificación de seguridad
+        if (rutaArchivo == null) {
+            System.out.println("Error: No se ha definido la ruta del archivo.");
+            return vehiculos;
+        }
+
+        File archivo = new File(rutaArchivo);
+        if (!archivo.exists()) return vehiculos;
 
         try (BufferedReader in = new BufferedReader(new FileReader(archivo))) {
             String linea;
@@ -56,13 +70,19 @@ public static void cargar(ArrayList<Vehiculo> vehiculos) {
                 if (linea.trim().isEmpty()) continue;
                 String[] datos = linea.split(";");
                 if (datos.length >= 5) {
-                    vehiculos.add(new Vehiculo(datos[0].trim(), datos[1].trim(), 
-                                  datos[2].trim(), Double.parseDouble(datos[3].trim()), datos[4].trim()));
+                    vehiculos.add(new Vehiculo(
+                        datos[0].trim(), 
+                        datos[1].trim(), 
+                        datos[2].trim(), 
+                        Double.parseDouble(datos[3].trim()), 
+                        datos[4].trim()
+                    ));
                 }
             }
         } catch (Exception e) {
             System.out.println("Error al cargar: " + e.getMessage());
         }
+        return vehiculos;
     }
 
 }

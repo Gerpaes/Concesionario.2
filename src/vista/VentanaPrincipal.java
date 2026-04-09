@@ -20,7 +20,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     public VentanaPrincipal() {
         initComponents();
-        FicheroVhiculos.cargar(Concesionario.vehiculos);
         this.setLocationRelativeTo(this);
         
     }

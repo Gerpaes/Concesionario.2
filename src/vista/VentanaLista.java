@@ -6,6 +6,7 @@ package vista;
 
 import controlador.Concesionario;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelo.MatriculaExcepcion;
 import modelo.Vehiculo;
@@ -29,6 +30,8 @@ public class VentanaLista extends javax.swing.JFrame {
         } catch (MatriculaExcepcion e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+        
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
     }
 

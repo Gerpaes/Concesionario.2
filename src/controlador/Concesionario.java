@@ -5,6 +5,7 @@
 package controlador;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import modelo.MatriculaExcepcion;
 import modelo.Vehiculo;
@@ -17,6 +18,13 @@ import percistencia.FicheroVhiculos;
  */
 public class Concesionario {
    public static ArrayList<Vehiculo> vehiculos = new ArrayList<>();
+   static {
+        // Cargamos los datos del fichero a la lista de memoria
+        vehiculos = FicheroVhiculos.cargar();
+        if (vehiculos == null) {
+            vehiculos = new ArrayList<>();
+        }
+    }
     
     
 public static void insertarVehiculo(Vehiculo v) throws MatriculaExcepcion{
