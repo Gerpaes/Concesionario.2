@@ -1,0 +1,3 @@
+123;tesla;urus;200.0;coche
+234;mercedes;luos;312.0;moto
+213;sdad;qwe;123.0;dasd
